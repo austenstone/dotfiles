@@ -86,9 +86,9 @@ plugins=(
     python
     rsync
     rust
-    tmux
+    # tmux
     vscode
-    zsh-syntax-highlighting
+    # zsh-syntax-highlighting
     # zsh-autosuggestions
     web-search
     # dirhistory
