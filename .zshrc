@@ -123,4 +123,8 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export GPG_TTY=$(tty)
+# Copilot CLI https://github.com/githubnext/copilot-cli
+COPILOT_CLI=~/source/copilot-cli
+if [ -e $COPILOT_CLI/bin/copilot-cli ]; then
+  eval "$($COPILOT_CLI/bin/copilot-cli alias -- "$0")"
+fi
