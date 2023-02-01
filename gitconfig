@@ -1,0 +1,14 @@
+[user]
+	name = Austen Stone
+	email = austenstone@github.com
+[color]
+	ui = true
+[github]
+	user = austenstone
+[color "decorate"]
+	head = bold white
+	branch = bold magenta
+	remotebranch = blue
+	tag = bold red
+[color "diff"]
+	whitespace = red reverse
