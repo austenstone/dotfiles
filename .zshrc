@@ -123,6 +123,11 @@ source $HOME/.aliases.zsh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+alias ga="git add"
+alias gaa="git add --all"
+alias gc="git commit -v"
+alias gc!="git commit -v"
+alias gp="git push"
 
 # Copilot CLI https://github.com/githubnext/copilot-cli
 COPILOT_CLI=~/source/copilot-cli
