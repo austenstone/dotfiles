@@ -1,0 +1,5 @@
+alias ga="git add"
+alias gaa="git add --all"
+alias gc="git commit -v"
+alias gc!="git commit -v"
+alias gp="git push"
