@@ -129,7 +129,4 @@ alias gc!="git commit -v"
 alias gp="git push"
 
 # Copilot CLI https://github.com/githubnext/copilot-cli
-COPILOT_CLI=~/source/copilot-cli
-if [ -e $COPILOT_CLI/bin/copilot-cli ]; then
-  eval "$($COPILOT_CLI/bin/copilot-cli alias -- "$0")"
-fi
+eval "$(github-copilot-cli alias -- "$0")"
