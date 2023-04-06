@@ -3,7 +3,7 @@ set -x
 
 # OhMyZsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-cd "${HOME}/.oh-my-zsh"; git pull; exec -l zsh
+cd "${HOME}/.oh-my-zsh"; git pull;
 
 create_symlinks() {
     # Get the directory in which this script lives.
