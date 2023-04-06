@@ -98,7 +98,6 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-source $HOME/.aliases.zsh
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
