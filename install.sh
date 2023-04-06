@@ -4,9 +4,7 @@ export BASE=$(pwd)
 
 # OhMyZsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-cd "${HOME}/.oh-my-zsh"
-git pull
-cd "${BASE}"
+(cd "${HOME}/.oh-my-zsh" && git pull)
 
 create_symlinks() {
     dotfiles_dir=$(dirname "$(readlink -f "$0")")
