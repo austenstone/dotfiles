@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 
 # OhMyZsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
