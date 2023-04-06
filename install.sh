@@ -1,9 +1,12 @@
 #!/bin/bash
 set -x
+export BASE=$(pwd)
 
 # OhMyZsh
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-cd "${HOME}/.oh-my-zsh"; git pull;
+cd "${HOME}/.oh-my-zsh"
+git pull
+cd "${BASE}"
 
 create_symlinks() {
     # Get the directory in which this script lives.
