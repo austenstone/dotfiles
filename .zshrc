@@ -127,6 +127,3 @@ alias gaa="git add --all"
 alias gc="git commit -v"
 alias gc!="git commit -v"
 alias gp="git push"
-
-# Copilot CLI https://github.com/githubnext/copilot-cli
-eval "$(github-copilot-cli alias -- "$0")"
