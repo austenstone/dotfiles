@@ -23,7 +23,9 @@ export ZSH="$HOME/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# Prompt is handled by starship (sourced at the very bottom of this file), so
+# we leave the oh-my-zsh theme empty to skip its prompt setup entirely.
+ZSH_THEME=""
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -151,6 +153,49 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root)
 typeset -A ZSH_HIGHLIGHT_PATTERNS
 ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
 
+# --- modern CLI tooling ------------------------------------------------------
+# All compiled binaries with cheap init hooks. Where a tool forks a process to
+# print its init script, we cache that output (busting when the binary is newer)
+# so shell startup stays under budget — same trick as the gh completion below.
+_cache_source() {
+  local cache="$1" bin="$2"; shift 2
+  if [[ ! -f "$cache" || "$bin" -nt "$cache" ]]; then
+    mkdir -p "${cache:h}"
+    "$@" > "$cache" 2>/dev/null
+  fi
+  source "$cache"
+}
+
+# fzf: fuzzy finder. Ctrl-R (history), Ctrl-T (files), Alt-C (cd), <tab> completion.
+if command -v fzf &>/dev/null; then
+  _cache_source "$HOME/.cache/fzf_init.zsh" "$(command -v fzf)" fzf --zsh
+  export FZF_DEFAULT_OPTS='--height 40% --layout reverse --border'
+  # Back Ctrl-T / Alt-C with fd: fast and respects .gitignore.
+  if command -v fd &>/dev/null; then
+    export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+    export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+  fi
+fi
+
+# zoxide: cd that learns your dirs. `z <fuzzy>` jumps, `zi` picks interactively.
+command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+
+# eza: modern ls (icons need a Nerd Font; --icons=auto only shows them on a tty).
+if command -v eza &>/dev/null; then
+  alias ls='eza --group-directories-first --icons=auto'
+  alias ll='eza -l --group-directories-first --icons=auto --git'
+  alias la='eza -la --group-directories-first --icons=auto --git'
+  alias lt='eza --tree --level=2 --icons=auto'
+fi
+
+# bat: cat with syntax highlighting. --style=plain keeps it close to real cat.
+if command -v bat &>/dev/null; then
+  alias cat='bat --paging=never --style=plain'
+  export BAT_THEME='ansi'
+fi
+# ----------------------------------------------------------------------------
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -249,3 +294,8 @@ alias code="code-insiders"
 export PATH="/Users/austenstone/.local/bin:$PATH"
 
 export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
+
+# starship: fast cross-shell prompt. Sourced LAST so nothing overrides the
+# prompt. Cached via _cache_source (defined above) to avoid forking on startup.
+command -v starship &>/dev/null && \
+  _cache_source "$HOME/.cache/starship_init.zsh" "$(command -v starship)" starship init zsh --print-full-init

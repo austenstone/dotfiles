@@ -1,14 +1,43 @@
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
 [user]
 	name = Austen Stone
 	email = austenstone@github.com
-[color]
-	ui = true
-[github]
-	user = austenstone
-[color "decorate"]
-	head = bold white
-	branch = bold magenta
-	remotebranch = blue
-	tag = bold red
-[color "diff"]
-	whitespace = red reverse
+	signingkey = /Users/austenstone/.ssh/id_rsa.pub
+[alias]
+	lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+	vdiff = difftool -d
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[gpg]
+	format = ssh
+[pull]
+	rebase = true
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[diff]
+	tool = vscode
+[difftool "vscode"]
+	cmd = code --wait --diff \"$LOCAL\" \"$REMOTE\"
+[difftool]
+	prompt = false
+[safe]
+	directory = *
+[core]
+	pager = delta
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	navigate = true
+	line-numbers = true
+[merge]
+	conflictStyle = zdiff3
