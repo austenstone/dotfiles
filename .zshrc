@@ -90,18 +90,31 @@ ZSH_THEME="robbyrussell"
 zstyle ':omz:plugins:nvm' lazy yes
 zstyle ':omz:plugins:nvm' lazy-cmd node npm npx yarn pnpm corepack
 
+# Cheap plugins (aliases/functions only, ~no startup cost): git gh node npm
+# python rsync vscode web-search colorize colored-man-pages brew macos golang
+# Costed plugins (load completions, measurable): docker rust deno
+# nvm is lazy-loaded via the zstyle above. zsh-autosuggestions then
+# zsh-syntax-highlighting MUST stay last (highlighting binds the buffer).
 plugins=(
     git
-    github
-    docker
+    gh
     node
     npm
     nvm
+    deno
+    docker
+    golang
+    rust
+    python
+    rsync
+    macos
+    vscode
+    web-search
+    colorize
     colored-man-pages
     brew
-    zsh-syntax-highlighting
     zsh-autosuggestions
-    deno
+    zsh-syntax-highlighting
 )
 
 # Skip compaudit insecure-directory scan for faster startup
