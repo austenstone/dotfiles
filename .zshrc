@@ -139,6 +139,18 @@ compinit() {
 
 source $ZSH/oh-my-zsh.sh
 
+# --- zsh-syntax-highlighting tuning -----------------------------------------
+# The plugin loads `main` by default. These highlighters are evaluated per
+# keystroke (not at startup), so they cost nothing on shell launch.
+#   main     - commands/args/strings/options (the core highlighter)
+#   brackets - matches (){}[] pairs; mismatches flash red as you type
+#   pattern  - custom regex rules; we use it to flag dangerous commands
+#   root     - tints the whole line when you're running as root
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern root)
+# Scream at `rm -rf` so a stray flag never sneaks past.
+typeset -A ZSH_HIGHLIGHT_PATTERNS
+ZSH_HIGHLIGHT_PATTERNS+=('rm -rf *' 'fg=white,bold,bg=red')
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
